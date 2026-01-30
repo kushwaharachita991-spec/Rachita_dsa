@@ -45,7 +45,7 @@ int delete(int arr[], int n, int x)
     }
     if (i==n)
     {
-        printf("Zyada hoshiyari nahi !!!\n")
+        printf("Zyada hoshiyari nahi !!!\n");
         return n;
     }
     for (int j=i; j<=n-2; j++)
@@ -53,6 +53,79 @@ int delete(int arr[], int n, int x)
         arr[j] = arr[j+1];
     }
     return n-1;
+}
+int isSorted(int arr[], int n)
+{
+    for (int i=0; i<=n-2; i++)
+    {
+        int flag=1;
+        for (int j=i+1; j<n; j++)
+        {
+            if (arr[j]<arr[i])
+            {
+                flag=0;
+                break;
+            }
+        }
+        if(flag==0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+int isSorted_optimised(int arr[], int n)
+{
+    for (int i=0; i<=n-2; i++)
+    {
+        if(arr[i]>arr[i+1])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+int getMax(int arr[], int n)
+{
+    int max=arr[0];
+    for(int i=1; i<n; i++)
+    {
+        if (arr[i]>max)
+        {
+            max=arr[i];
+        }
+    }
+    return max;
+}
+int getSmax(int arr[], int n)
+{
+    int max=arr[0];
+    int smax=-1;
+    for(int i=1; i<n; i++)
+    {
+        if(arr[i]>max)
+        {
+            smax=max;
+            max=arr[i];
+        }
+        if(arr[i]<max && arr[i]>smax)
+        {
+            smax=arr[i]; 
+        }
+    }
+    return smax;
+}
+void reverse(int arr[], int n)
+{
+    int i=0, j=n-1;
+    while(i<j)
+    {
+        int temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+        i++;
+        j--;
+    }
 }
 int main()
 {
@@ -63,7 +136,7 @@ int main()
     int ans = search (arr,n,x);
     if (ans==-1)
     {
-        pritf("Better luck next time !!");
+        printf("Better luck next time !!");
     }
     else
     {
@@ -73,4 +146,10 @@ int main()
     display(arr,n);
     n=delete(arr,n,130);
     display(arr,n);
+    printf("%d ", isSorted(arr,n));
+    printf("%d ", isSorted_optimised(arr,n));
+    printf("Max--->%d", getMax(arr,n));
+    reverse(arr,n);
+    display(arr,n);
+    printf("%d", getSmax(arr,n));
 }
